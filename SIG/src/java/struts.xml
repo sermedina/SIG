@@ -1,0 +1,186 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.configuration.xml.reload" value="true" />
+	<!-- Configuration for the default package. -->
+	<package name="default" extends="json-default">
+
+		<result-types>
+			<result-type name="json" class="org.apache.struts2.json.JSONResult" default="false" />
+		</result-types>
+
+		<interceptors>
+			<interceptor name="InterLogin" class="interceptores.InterceptorLogin" />
+			<interceptor-stack name="secureStack">
+				<interceptor-ref name="InterLogin" />
+			</interceptor-stack>
+		</interceptors>
+		
+		<!-- Inicio actions de redirecionamiento -->
+		<action name="agrInstitucion">
+			<interceptor-ref name="secureStack" />
+			<result name="login">WEB-INF/login.jsp</result>
+			<result>WEB-INF/agrInstitucion.jsp</result>
+		</action>
+		<action name="agregarCarrera">
+			<interceptor-ref name="secureStack" />
+			<result type="chain">rellenarCombo2</result>
+			<result name="login">WEB-INF/login.jsp</result>
+		</action>
+		<action name="agregarTabla">
+			<interceptor-ref name="secureStack" />
+			<result name="login">WEB-INF/login.jsp</result>
+			<result>WEB-INF/agregarTabla.jsp</result>
+		</action>
+		<action name="consultarCarrera">
+			<interceptor-ref name="secureStack" />
+			<result name="login">WEB-INF/login.jsp</result>
+			<result>WEB-INF/consultarCarrera.jsp</result>
+		</action>
+		<action name="consultarTabla">
+			<interceptor-ref name="secureStack" />
+			<result name="login">WEB-INF/login.jsp</result>
+			<result>WEB-INF/consultarTabla.jsp</result>
+		</action>
+		<action name="elimCarrera">
+			<interceptor-ref name="secureStack" />
+			<result type="chain">rellenarCombo3</result>
+			<result name="login">WEB-INF/login.jsp</result>
+		</action>
+		<action name="elimInstitucion">
+			<interceptor-ref name="secureStack" />
+			<result type="chain">rellenarCombo5</result>
+			<result name="login">WEB-INF/login.jsp</result>
+		</action>
+		<action name="elimTablasEquiv">
+			<interceptor-ref name="secureStack" />
+			<result name="login">WEB-INF/login.jsp</result>
+			<result>WEB-INF/elimTablasEquiv.jsp</result>
+		</action>
+		<action name="gestCarreras">
+			<interceptor-ref name="secureStack" />
+			<result name="login">WEB-INF/login.jsp</result>
+			<result>WEB-INF/gestCarreras.jsp</result>
+		</action>
+		<action name="gestInstitucion">
+			<interceptor-ref name="secureStack" />
+			<result name="login">WEB-INF/login.jsp</result>
+			<result>WEB-INF/gestInstitucion.jsp</result>
+		</action>
+		<action name="gestTablasEquiv">
+			<interceptor-ref name="secureStack" />
+			<result name="login">WEB-INF/login.jsp</result>
+			<result>WEB-INF/gestTablasEquiv.jsp</result>
+		</action>
+		<action name="index">
+			<interceptor-ref name="secureStack" />
+			<result name="login">WEB-INF/login.jsp</result>
+			<result>WEB-INF/index.jsp</result>
+		</action>
+		<action name="login">
+			<result>WEB-INF/login.jsp</result>
+		</action>
+		<action name="modInstitucion">
+			<interceptor-ref name="secureStack" />
+			<result type="chain">rellenarCombo4</result>
+			<result name="login">WEB-INF/login.jsp</result>
+		</action>
+		<action name="modCarrera">
+			<interceptor-ref name="secureStack" />
+			<result type="chain">rellenarCombo1</result>
+			<result name="login">WEB-INF/login.jsp</result>
+		</action>
+		<action name="modTablasEquiv">
+			<interceptor-ref name="secureStack" />
+			<result>WEB-INF/modTablasEquiv.jsp</result>
+			<result name="login">WEB-INF/login.jsp</result>
+		</action>
+
+		<!-- Fin actions de redireccionamiento -->
+
+		<action name="LoginAction" class="action.LoginAction">
+			<result name="input">WEB-INF/login.jsp</result>
+			<result name="error">WEB-INF/login.jsp</result>
+			<result>WEB-INF/index.jsp</result>
+		</action>
+
+		<action name="Logout" class="action.LogoutAction">
+			<result name="login">WEB-INF/login.jsp</result>
+			<result name="error">WEB-INF/login.jsp</result>
+			<result>WEB-INF/login.jsp</result>
+		</action>
+
+		<action name="validarUsuario" class="action.LoginAction">
+			<result>WEB-INF/index.jsp</result>
+			<result name="input">WEB-INF/login.jsp</result>
+		</action>
+
+		<action name="rellenarCombo1" class="action.RellenarComboAction">
+			<result name="success">WEB-INF/modCarrera.jsp</result>
+			<result name="error">WEB-INF/modCarrera.jsp</result>
+		</action>
+
+		<action name="rellenarCombo2" class="action.RellenarComboAction">
+			<result name="success">WEB-INF/agregarCarrera.jsp</result>
+			<result name="error">WEB-INF/agregarCarrera.jsp</result>
+		</action>
+
+		<action name="rellenarCombo3" class="action.RellenarComboAction">
+			<result name="success">WEB-INF/elimCarrera.jsp</result>
+			<result name="error">WEB-INF/elimCarrera.jsp</result>
+		</action>
+
+		<action name="rellenarCombo4" class="action.RellenarComboAction">
+		   <result name="success">WEB-INF/modInstitucion.jsp</result>
+		   <result name="error">WEB-INF/modInstitucion.jsp</result>
+		</action>
+
+		<action name="rellenarCombo5" class="action.RellenarComboAction">
+			<result name="success">WEB-INF/elimInstitucion.jsp</result>
+			<result name="error">WEB-INF/elimInstitucion.jsp</result>
+		</action>
+
+		<action name="agrInstitucion" class="action.AgregarInstitucionAction">
+			<result name="success">WEB-INF/agrInstitucion.jsp</result>
+			<result name="input">WEB-INF/agrInstitucion.jsp</result>
+			<result name="error">WEB-INF/login.jsp</result>
+		</action>
+
+		<action name="modiInstitucion" class="action.ModificarInstitucionAction">
+			<result type="chain">rellenarCombo4</result>
+			<result name="input" type="chain">rellenarCombo4</result>
+			<result name="error">WEB-INF/login.jsp</result>
+		</action>
+
+		<action name="elimiInstitucion" class="action.EliminarInstitucionAction">
+			<result type="chain">rellenarCombo5</result>
+			<result name="input" type="chain">rellenarCombo5</result>
+			<result name="error">WEB-INF/login.jsp</result>
+		</action>
+
+		<action name="agrCarrera" class="action.AgregarCarreraAction">
+			<result type="chain">rellenarCombo2</result>
+			<result name="input" type="chain">rellenarCombo2</result>
+			<result name="error">WEB-INF/login.jsp</result>
+		</action>
+
+		<action name="modiCarrera" class="action.ModificarCarreraAction">
+			<result type="chain">rellenarCombo1</result>
+			<result name="input" type="chain">rellenarCombo1</result>
+			<result name="error">WEB-INF/login.jsp</result>
+		</action>
+
+		<action name="elimiCarrera" class="action.EliminarCarreraAction">
+			<result type="chain">rellenarCombo3</result>
+			<result name="input" type="chain">rellenarCombo3</result>
+			<result name="error">WEB-INF/login.jsp</result>
+		</action>
+
+		<action name="cargarCarreras" class="action.CargarCarrerasAction">
+			<result type= "json" />
+		</action>
+	</package>
+</struts>
